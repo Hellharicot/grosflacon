@@ -1,2 +1,2 @@
-# grosflacon
-PWA for the Gros Flacon App, that simplifies wine tasting note taking.
+# grosFlacon
+GrosFlacon is a Progressive WebApp that simplifies wine tasting note taking.
