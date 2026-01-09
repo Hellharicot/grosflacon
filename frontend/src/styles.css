@@ -1,3 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
 
-@import "tailwindcss";
+@theme {
+	--color-primary-50: #ebdde2;
+	--color-primary-100: #dfc8cf;
+	--color-primary-200: #c69ca9;
+	--color-primary-300: #ad7183;
+	--color-primary-400: #94465d;
+	--color-primary-500: #7b1b38;
+	--color-primary-600: #62152c;
+	--color-primary-700: #491021;
+	--color-primary-800: #310a16;
+	--color-primary-900: #18050b;
+	--color-primary-950: #0c0205;
+	--font-sans: 'Roboto', sans-serif;
+}
+
+@layer base {
+	a {
+		@apply text-primary-200 transition-all duration-200 ease-in-out hover:text-primary-50 focus:text-primary-50 active:text-primary-50;
+	}
+}
+
+.btn-interaction-style {
+	@apply transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-primary-50 hover:outline hover:outline-offset-2 hover:outline-primary-50 focus:scale-105 focus:bg-primary-600 focus:text-primary-50 focus:outline focus:outline-offset-2 focus:outline-primary-50 active:scale-95 active:opacity-95;
+}
+
+body {
+	background-color: var(--color-primary-500);
+	color: var(--color-primary-50);
+	font-family: var(--font-sans);
+}
