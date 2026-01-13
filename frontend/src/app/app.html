@@ -1,4 +1,11 @@
-<div class="flex justify-center items-center h-screen">
-  <app-logo class="text-6xl" />
-</div>
+<main class="flex flex-col items-center justify-center h-screen">
+  <h1 class="text-6xl md:text-7xl">
+    <app-logo />
+  </h1>
+  <h2 class="text-2xl md:text-3xl text-primary-50 tracking-wider w-3/4 text-center p-2">
+    Rappelez-vous de ce que vous avez bu !
+  </h2>
+  <app-link-button link="/new" label="Déguster" class="p-4 text-2xl md:text-3xl" />
+</main>
+
 <router-outlet />
