@@ -1,29 +1,57 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormInputComponent } from '@app/components/form-input/form-input.component';
+import { FormRadioComponent } from '@app/components/form-radio/form-radio.component';
+
+interface FormStep {
+  type: 'input' | 'radio' | 'checkbox';
+  name: string;
+  placeholder: string;
+  value: string | string[];
+  opts?: string[];
+}
 
 @Component({
   selector: 'app-new-tasting-note',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormInputComponent, FormRadioComponent],
   templateUrl: './new-tasting-note.html',
   styleUrl: './new-tasting-note.css',
 })
 export class NewTastingNoteComponent {
-  steps = [
-    { name: 'country', placeholder: 'Pays' },
-    { name: 'region', placeholder: 'Région' },
-    { name: 'appellation', placeholder: 'Appellation' },
-    { name: 'property', placeholder: 'Domaine' },
-    { name: 'color', placeholder: 'Couleur' },
-    { name: 'year', placeholder: 'Année' }
+  steps: FormStep[] = [
+    { type: 'input', value: '', name: 'country', placeholder: 'Pays' },
+    { type: 'input', value: '', name: 'region', placeholder: 'Région' },
+    {
+      type: 'input',
+      value: '',
+      name: 'appellation',
+      placeholder: 'Appellation',
+    },
+    { type: 'input', value: '', name: 'property', placeholder: 'Domaine' },
+    {
+      type: 'radio',
+      value: '',
+      name: 'color',
+      placeholder: 'Couleur',
+      opts: ['blanc', 'rosé', 'rouge'],
+    },
+    { type: 'input', value: '', name: 'year', placeholder: 'Année' },
+    {
+      type: 'checkbox',
+      value: '',
+      name: 'aromas',
+      placeholder: 'Bouquet',
+      opts: ['fruité', 'floral', 'épicé', 'animal', 'herbacé', 'minéral'],
+    },
   ];
 
   wineIdForm = new FormGroup({
-    country: new FormControl<string>(""),
-    region: new FormControl<string>(""),
-    appellation: new FormControl<string>(""),
-    property: new FormControl<string>(""),
-    color: new FormControl<string>(""),
-    year: new FormControl<string>(""),
+    country: new FormControl<string>(''),
+    region: new FormControl<string>(''),
+    appellation: new FormControl<string>(''),
+    property: new FormControl<string>(''),
+    color: new FormControl<string>(''),
+    year: new FormControl<string>(''),
   });
 }

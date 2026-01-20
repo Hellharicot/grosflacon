@@ -1,0 +1,17 @@
+<div
+  [formGroup]="parentForm()"
+  class="m-2 flex items-center"
+>
+  <label
+    [attr.for]="name()"
+    class="w-1/4 font-bold"
+    >{{ placeholder() }} :</label
+  >
+  <input
+    [id]="name()"
+    type="text"
+    [placeholder]="placeholder()"
+    class="form-input"
+    [formControlName]="name()"
+  />
+</div>

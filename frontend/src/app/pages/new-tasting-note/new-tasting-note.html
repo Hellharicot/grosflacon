@@ -1,16 +1,48 @@
-<p class="text-center">{{ wineIdForm.value.country + ' ' + wineIdForm.value.region + ' ' + wineIdForm.value.appellation + ' ' + wineIdForm.value.property + ' ' + wineIdForm.value.color + ' ' + wineIdForm.value.year }}</p>
+<p class="text-center">
+  {{
+    wineIdForm.value.country +
+      ' ' +
+      wineIdForm.value.region +
+      ' ' +
+      wineIdForm.value.appellation +
+      ' ' +
+      wineIdForm.value.property +
+      ' ' +
+      wineIdForm.value.color +
+      ' ' +
+      wineIdForm.value.year
+  }}
+</p>
 <h2 class="text-center">Que dégustez-vous ?</h2>
-<form [formGroup]="wineIdForm" method="post" class="w-xl">
+<form
+  [formGroup]="wineIdForm"
+  method="post"
+  class="w-xl"
+>
   @for (step of steps; track step.name) {
-    <div class="m-2 flex items-center">
-      <label [attr.for]="step.name" class="w-1/4 font-bold">{{step.placeholder}} :</label>
-      <input
-        type="text"
-        placeholder="{{step.placeholder}}"
-        class="form-input"
-        [formControlName]="step.name"
-      />
-    </div>
+    @switch (step.type) {
+      @case ('input') {
+        <app-form-input
+          [placeholder]="step.placeholder"
+          [name]="step.name"
+          [parentForm]="wineIdForm"
+        ></app-form-input>
+      }
+      @case ('radio') {
+        <app-form-radio
+          [name]="step.name"
+          [placeholder]="step.placeholder"
+          [options]="step.opts ?? []"
+        ></app-form-radio>
+      }
+      @case ('checkbox') {
+        <p>une checkbox</p>
+      }
+    }
   }
 </form>
-<input type="submit" value="Suivant" class="btn-interaction-style" />
+<input
+  type="submit"
+  value="Suivant"
+  class="btn-interaction-style"
+/>

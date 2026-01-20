@@ -8,4 +8,4 @@ import { LinkButtonComponent } from '@components/link-button/link-button.compone
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
-export class HomepageComponent {}
+export class HomepageComponent { }
