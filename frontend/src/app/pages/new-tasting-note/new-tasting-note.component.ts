@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from '@app/components/form-input/form-input.component';
 import { FormRadioComponent } from '@app/components/form-radio/form-radio.component';
+import { FormCheckboxComponent } from '@app/components/form-checkbox/form-checkbox.component';
 
 interface FormStep {
   type: 'input' | 'radio' | 'checkbox';
@@ -14,7 +15,12 @@ interface FormStep {
 
 @Component({
   selector: 'app-new-tasting-note',
-  imports: [ReactiveFormsModule, FormInputComponent, FormRadioComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormInputComponent,
+    FormRadioComponent,
+    FormCheckboxComponent,
+  ],
   templateUrl: './new-tasting-note.html',
   styleUrl: './new-tasting-note.css',
 })

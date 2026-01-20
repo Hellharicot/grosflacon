@@ -1,18 +1,3 @@
-<p class="text-center">
-  {{
-    wineIdForm.value.country +
-      ' ' +
-      wineIdForm.value.region +
-      ' ' +
-      wineIdForm.value.appellation +
-      ' ' +
-      wineIdForm.value.property +
-      ' ' +
-      wineIdForm.value.color +
-      ' ' +
-      wineIdForm.value.year
-  }}
-</p>
 <h2 class="text-center">Que dégustez-vous ?</h2>
 <form
   [formGroup]="wineIdForm"
@@ -36,7 +21,11 @@
         ></app-form-radio>
       }
       @case ('checkbox') {
-        <p>une checkbox</p>
+        <app-form-checkbox
+          [name]="step.name"
+          [placeholder]="step.placeholder"
+          [options]="step.opts ?? []"
+        ></app-form-checkbox>
       }
     }
   }

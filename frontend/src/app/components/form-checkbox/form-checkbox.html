@@ -1,1 +1,22 @@
-<p>form-checkbox works!</p>
+<div class="m-2 flex items-center">
+  <fieldset class="flex w-full items-center justify-around text-center">
+    <legend class="w-1/4 font-bold">{{ placeholder() }}</legend>
+    @for (opt of options(); track opt) {
+      <div>
+        <input
+          type="checkbox"
+          [name]="name()"
+          [id]="opt"
+          [value]="opt"
+          [checked]="value().includes(opt)"
+          (change)="toggleOptions(opt)"
+        />
+        <label
+          [for]="opt"
+          class="pl-2"
+          >{{ opt }}</label
+        >
+      </div>
+    }
+  </fieldset>
+</div>
