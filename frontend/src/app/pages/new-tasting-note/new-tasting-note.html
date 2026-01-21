@@ -17,14 +17,21 @@
         <app-form-radio
           [name]="step.name"
           [placeholder]="step.placeholder"
-          [options]="step.opts ?? []"
+          [options]="$any(step.opts) ?? []"
         ></app-form-radio>
       }
       @case ('checkbox') {
         <app-form-checkbox
           [name]="step.name"
           [placeholder]="step.placeholder"
-          [options]="step.opts ?? []"
+          [options]="$any(step.opts) ?? []"
+        ></app-form-checkbox>
+      }
+      @case ('aroma-selector') {
+        <app-form-checkbox
+          [name]="step.name"
+          [placeholder]="step.placeholder"
+          [options]="$any(step.opts) ?? []"
         ></app-form-checkbox>
       }
     }

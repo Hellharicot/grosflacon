@@ -1,18 +1,20 @@
-<div class="m-2 flex items-center">
-  <fieldset class="flex w-full items-center justify-around text-center">
-    <legend class="w-1/4 font-bold">{{ placeholder() }}</legend>
-    @for (opt of options(); track opt) {
-      <div>
+<div class="bg-primary-400 m-2 items-center rounded-xl p-4">
+  <fieldset
+    class="flex w-full flex-wrap items-center justify-around gap-3 text-center"
+  >
+    <legend class="font-bold">{{ placeholder() }}</legend>
+    @for (opt of options(); track opt; let i = $index) {
+      <div class="flex items-center">
         <input
           type="checkbox"
           [name]="name()"
-          [id]="opt"
+          [id]="name + '-' + i"
           [value]="opt"
           [checked]="value().includes(opt)"
           (change)="toggleOptions(opt)"
         />
         <label
-          [for]="opt"
+          [for]="name + '-' + i"
           class="pl-2"
           >{{ opt }}</label
         >
