@@ -4,14 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from '@app/components/form-input/form-input.component';
 import { FormRadioComponent } from '@app/components/form-radio/form-radio.component';
 import { FormCheckboxComponent } from '@app/components/form-checkbox/form-checkbox.component';
-
-interface FormStep {
-  type: 'input' | 'radio' | 'checkbox';
-  name: string;
-  placeholder: string;
-  value: string | string[];
-  opts?: string[];
-}
+import { FORM_STEPS } from './formstep';
 
 @Component({
   selector: 'app-new-tasting-note',
@@ -25,32 +18,7 @@ interface FormStep {
   styleUrl: './new-tasting-note.css',
 })
 export class NewTastingNoteComponent {
-  steps: FormStep[] = [
-    { type: 'input', value: '', name: 'country', placeholder: 'Pays' },
-    { type: 'input', value: '', name: 'region', placeholder: 'Région' },
-    {
-      type: 'input',
-      value: '',
-      name: 'appellation',
-      placeholder: 'Appellation',
-    },
-    { type: 'input', value: '', name: 'property', placeholder: 'Domaine' },
-    {
-      type: 'radio',
-      value: '',
-      name: 'color',
-      placeholder: 'Couleur',
-      opts: ['blanc', 'rosé', 'rouge'],
-    },
-    { type: 'input', value: '', name: 'year', placeholder: 'Année' },
-    {
-      type: 'checkbox',
-      value: '',
-      name: 'aromas',
-      placeholder: 'Bouquet',
-      opts: ['fruité', 'floral', 'épicé', 'animal', 'herbacé', 'minéral'],
-    },
-  ];
+  steps = FORM_STEPS;
 
   wineIdForm = new FormGroup({
     country: new FormControl<string>(''),
