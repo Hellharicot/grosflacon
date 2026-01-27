@@ -18,7 +18,7 @@ export interface FormStep {
   opts?: string[] | AromaFamily[] | number[];
 }
 
-const AROMATIC_CATALOG: AromaFamily[] = [
+const AROMA_CATALOG: AromaFamily[] = [
   {
     family: 'Fruité',
     subfamilies: [
@@ -133,8 +133,7 @@ const AROMATIC_CATALOG: AromaFamily[] = [
   { family: 'Lacté', aromas: ['beurre', 'yaourt'] },
   { family: 'Fermentation', aromas: ['levures', 'pain', 'brioche'] },
 ];
-
-export const FORM_STEPS: FormStep[] = [
+const IDENTIFIER_STEP: FormStep[] = [
   {
     step: 'identifier',
     type: 'input',
@@ -178,33 +177,8 @@ export const FORM_STEPS: FormStep[] = [
     name: 'year',
     placeholder: 'Année',
   },
-
-  {
-    step: 'sight',
-    type: 'radio',
-    value: '',
-    name: 'clarity',
-    placeholder: 'Limpidité',
-    opts: ['Limpide', 'Voilé', 'Trouble'],
-  },
-
-  {
-    step: 'sight',
-    type: 'radio',
-    value: '',
-    name: 'color intensity',
-    placeholder: 'Intensité de la couleur',
-    opts: [
-      'Translucide',
-      'Pâle',
-      'Légère',
-      'Modérée',
-      'Soutenue',
-      'Profonde',
-      'Opaque',
-    ],
-  },
-
+];
+const SIGHT_STEP: FormStep[] = [
   {
     step: 'sight',
     type: 'radio',
@@ -226,7 +200,6 @@ export const FORM_STEPS: FormStep[] = [
       'Brun',
     ],
   },
-
   {
     step: 'sight',
     type: 'radio',
@@ -274,7 +247,6 @@ export const FORM_STEPS: FormStep[] = [
     placeholder: 'Coloration des larmes',
     opts: ['Aucune', 'Légère', 'Moyenne', 'Intense'],
   },
-
   {
     step: 'sight',
     type: 'radio',
@@ -292,7 +264,8 @@ export const FORM_STEPS: FormStep[] = [
     placeholder: 'Gaz',
     opts: ['Non', 'Oui'],
   },
-
+];
+const NOSE_STEP: FormStep[] = [
   {
     step: 'nose',
     type: 'checkbox',
@@ -311,12 +284,14 @@ export const FORM_STEPS: FormStep[] = [
   },
   {
     step: 'nose',
-    type: 'aroma-selector',
+    type: 'checkbox',
     value: [],
-    name: 'aromas_nose',
+    name: 'aromas',
     placeholder: 'Bouquet',
-    opts: AROMATIC_CATALOG,
+    opts: AROMA_CATALOG,
   },
+];
+const PALATE_STEP: FormStep[] = [
   {
     step: 'palate',
     type: 'radio',
@@ -400,7 +375,7 @@ export const FORM_STEPS: FormStep[] = [
     value: [],
     name: 'aromas_palate',
     placeholder: 'Arômes en bouche',
-    opts: AROMATIC_CATALOG,
+    opts: AROMA_CATALOG,
   },
   {
     step: 'palate',
@@ -410,6 +385,8 @@ export const FORM_STEPS: FormStep[] = [
     placeholder: 'Longueur',
     opts: ['Courte', 'Moyenne', 'Longue', 'Persistante'],
   },
+];
+const APPRECIATION_STEP: FormStep[] = [
   {
     step: 'appreciation',
     type: 'radio',
@@ -433,4 +410,11 @@ export const FORM_STEPS: FormStep[] = [
     name: 'comment',
     placeholder: 'Commentaires',
   },
+];
+export const FORM_STEPS: FormStep[] = [
+  ...IDENTIFIER_STEP,
+  ...SIGHT_STEP,
+  ...NOSE_STEP,
+  ...PALATE_STEP,
+  ...APPRECIATION_STEP,
 ];
