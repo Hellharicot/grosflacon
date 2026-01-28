@@ -1,16 +1,18 @@
 import { Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AromaFamily } from '@app/pages/new-tasting-note/formstep';
+
 @Component({
-  selector: 'app-form-checkbox',
+  selector: 'app-form-aroma-selector',
   imports: [FormsModule],
-  templateUrl: './form-checkbox.html',
-  styleUrl: './form-checkbox.css',
+  templateUrl: './form-aroma-selector.html',
+  styleUrl: './form-aroma-selector.css',
 })
-export class FormCheckboxComponent {
+export class FormAromaSelectorComponent {
   placeholder = input.required<string>();
   name = input.required<string>();
   value = model<string[]>([]);
-  options = input.required<string[]>();
+  families = input.required<AromaFamily[]>();
 
   toggleOptions(opt: string) {
     const current = this.value();

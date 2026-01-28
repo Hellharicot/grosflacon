@@ -1,24 +1,76 @@
 <div class="bg-primary-400 m-2 items-center rounded-xl p-4">
-  <fieldset
-    class="flex w-full flex-wrap items-center justify-around gap-3 text-center"
-  >
+  <fieldset class="text-center">
     <legend class="font-bold">{{ placeholder() }}</legend>
-    @for (opt of options(); track opt; let i = $index) {
-      <div class="flex items-center">
+
+    @for (family of families(); track family.family) {
+      <div class="mb-6">
+        <h3 class="mb-2 text-sm font-bold text-red-800 uppercase">
+          {{ family.family }}
+        </h3>
+
+        @if (family.subfamilies) {
+          <div class="ml-4 space-y-4">
+            @for (sub of family.subfamilies; track sub.subfamily) {
+              <div>
+                <h4 class="mb-1 text-xs text-gray-500 italic">
+                  {{ sub.subfamily }}
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  @for (aroma of sub.aromas; track aroma) {
+                    <input
+                      type="checkbox"
+                      [name]="aroma"
+                      [id]="aroma"
+                      [value]="aroma"
+                      [checked]="value().includes(aroma)"
+                      (change)="toggleOptions(aroma)"
+                    />
+                    <label
+                      [for]="aroma"
+                      class="pl-2"
+                      >{{ aroma }}</label
+                    >
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+        @if (family.aromas) {
+          <div class="flex flex-wrap gap-2">
+            @for (aroma of family.aromas; track aroma) {
+              <input
+                type="checkbox"
+                [name]="aroma"
+                [id]="aroma"
+                [value]="aroma"
+                [checked]="value().includes(aroma)"
+                (change)="toggleOptions(aroma)"
+              />
+              <label
+                [for]="aroma"
+                class="pl-2"
+                >{{ aroma }}</label
+              >
+            }
+          </div>
+        }
+      </div>
+    }
+    <!--<div class="flex items-center">
         <input
           type="checkbox"
           [name]="name()"
           [id]="name + '-' + i"
           [value]="opt"
           [checked]="value().includes(opt)"
-          (change)="toggleOptions(opt)"
+          (change)="toggleoptions(opt)"
         />
         <label
           [for]="name + '-' + i"
           class="pl-2"
           >{{ opt }}</label
         >
-      </div>
-    }
+      </div>-->
   </fieldset>
 </div>

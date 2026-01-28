@@ -284,7 +284,7 @@ const NOSE_STEP: FormStep[] = [
   },
   {
     step: 'nose',
-    type: 'checkbox',
+    type: 'aroma-selector',
     value: [],
     name: 'aromas',
     placeholder: 'Bouquet',

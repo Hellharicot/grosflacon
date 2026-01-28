@@ -28,11 +28,11 @@
         ></app-form-checkbox>
       }
       @case ('aroma-selector') {
-        <app-form-checkbox
+        <app-form-aroma-selector
           [name]="step.name"
           [placeholder]="step.placeholder"
-          [options]="$any(step.opts) ?? []"
-        ></app-form-checkbox>
+          [families]="$any(step.opts) ?? []"
+        ></app-form-aroma-selector>
       }
     }
   }
