@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { Component, input, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AromaFamily } from '@app/pages/new-tasting-note/formstep';
 
@@ -13,6 +13,13 @@ export class FormAromaSelectorComponent {
   name = input.required<string>();
   value = model<string[]>([]);
   families = input.required<AromaFamily[]>();
+  openSubFamily = signal<string | null>(null);
+
+  toggleShow(subName: string) {
+    this.openSubFamily.update((current) =>
+      current === subName ? null : subName,
+    );
+  }
 
   toggleOptions(opt: string) {
     const current = this.value();

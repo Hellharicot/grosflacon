@@ -1,58 +1,75 @@
 <div class="bg-primary-400 m-2 items-center rounded-xl p-4">
-  <fieldset class="text-center">
-    <legend class="font-bold">{{ placeholder() }}</legend>
+  <fieldset class="flex w-full flex-wrap items-center justify-around gap-3">
+    <legend class="text-center font-bold">{{ placeholder() }}</legend>
 
     @for (family of families(); track family.family) {
       <div class="mb-6">
-        <h3 class="mb-2 text-sm font-bold text-red-800 uppercase">
+        <h3 class="mb-2 text-center">
           {{ family.family }}
         </h3>
 
         @if (family.subfamilies) {
-          <div class="ml-4 space-y-4">
-            @for (sub of family.subfamilies; track sub.subfamily) {
-              <div>
-                <h4 class="mb-1 text-xs text-gray-500 italic">
-                  {{ sub.subfamily }}
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                  @for (aroma of sub.aromas; track aroma) {
-                    <input
-                      type="checkbox"
-                      [name]="aroma"
-                      [id]="aroma"
-                      [value]="aroma"
-                      [checked]="value().includes(aroma)"
-                      (change)="toggleOptions(aroma)"
-                    />
-                    <label
-                      [for]="aroma"
-                      class="pl-2"
-                      >{{ aroma }}</label
-                    >
-                  }
-                </div>
-              </div>
-            }
-          </div>
+          @for (sub of family.subfamilies; track sub.subfamily) {
+            <div class="mb-6">
+              <details
+                class="group overflow-hidden"
+                (toggle)="toggleShow(sub.subfamily)"
+              >
+                <summary class="cursor-pointer list-none">
+                  <h4 class="text-center font-bold">
+                    {{ sub.subfamily }}
+                  </h4>
+                </summary>
+                @if (openSubFamily() === sub.subfamily) {
+                  <div
+                    class="flex flex-wrap justify-center gap-3"
+                    animate.enter="enter-animation"
+                    animate.leave="leaving"
+                  >
+                    @for (aroma of sub.aromas; track aroma; let i = $index) {
+                      <div class="flex flex-nowrap items-center">
+                        <input
+                          type="checkbox"
+                          [name]="aroma"
+                          [id]="name() + '-' + aroma + '-' + i"
+                          [value]="aroma"
+                          [checked]="value().includes(aroma)"
+                          (change)="toggleOptions(aroma)"
+                        />
+                        <label
+                          [for]="name() + '-' + aroma + '-' + i"
+                          class="pl-2"
+                          >{{ aroma }}</label
+                        >
+                      </div>
+                    }
+                  </div>
+                }
+              </details>
+            </div>
+          }
         }
         @if (family.aromas) {
-          <div class="flex flex-wrap gap-2">
-            @for (aroma of family.aromas; track aroma) {
-              <input
-                type="checkbox"
-                [name]="aroma"
-                [id]="aroma"
-                [value]="aroma"
-                [checked]="value().includes(aroma)"
-                (change)="toggleOptions(aroma)"
-              />
-              <label
-                [for]="aroma"
-                class="pl-2"
-                >{{ aroma }}</label
-              >
-            }
+          <div class="mb-4">
+            <div class="flex flex-wrap justify-center gap-3">
+              @for (aroma of family.aromas; track aroma; let i = $index) {
+                <div class="flex flex-nowrap items-center">
+                  <input
+                    type="checkbox"
+                    [name]="aroma"
+                    [id]="name() + '-' + aroma + '-' + i"
+                    [value]="aroma"
+                    [checked]="value().includes(aroma)"
+                    (change)="toggleOptions(aroma)"
+                  />
+                  <label
+                    [for]="name() + '-' + aroma + '-' + i"
+                    class="pl-2"
+                    >{{ aroma }}</label
+                  >
+                </div>
+              }
+            </div>
           </div>
         }
       </div>
