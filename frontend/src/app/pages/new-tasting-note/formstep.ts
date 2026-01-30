@@ -211,7 +211,6 @@ const SIGHT_STEP: FormStep[] = [
       'Vert',
       'Cuivré',
       'Tuilé',
-      'Brun',
       'Bleuté',
       'Magenta',
       'Ruby',

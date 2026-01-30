@@ -1,8 +1,11 @@
-import { Component, input, model } from '@angular/core';
+import { Component, input, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 @Component({
   selector: 'app-form-checkbox',
-  imports: [FormsModule],
+  imports: [FormsModule, MatCheckboxModule, MatButtonToggleModule],
   templateUrl: './form-checkbox.html',
   styleUrl: './form-checkbox.css',
 })
@@ -11,6 +14,11 @@ export class FormCheckboxComponent {
   name = input.required<string>();
   value = model<string[]>([]);
   options = input.required<string[]>();
+  hideMultipleSelectionIndicator = signal(true);
+
+  toggleMultipleSelectionIndicator() {
+    this.hideMultipleSelectionIndicator.update((value) => !value);
+  }
 
   toggleOptions(opt: string) {
     const current = this.value();

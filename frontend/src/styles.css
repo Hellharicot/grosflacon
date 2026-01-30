@@ -19,7 +19,7 @@
 
 @layer base {
   body {
-    @apply bg-primary-500 text-primary-50 font-sans;
+    @apply !bg-primary-500 !text-primary-50 !font-sans;
   }
 
   a {

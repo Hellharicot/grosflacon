@@ -3,22 +3,21 @@
     class="flex w-full flex-wrap items-center justify-center gap-3 text-center"
   >
     <legend class="font-bold">{{ placeholder() }}</legend>
-    @for (opt of options(); track opt; let i = $index) {
-      <div class="flex items-center">
-        <input
-          type="checkbox"
-          [name]="name()"
-          [id]="name + '-' + i"
+    <mat-button-toggle-group
+      name="name()"
+      aria-label="name()"
+      [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+      multiple
+    >
+      @for (opt of options(); track opt; let i = $index) {
+        <mat-button-toggle
           [value]="opt"
           [checked]="value().includes(opt)"
           (change)="toggleOptions(opt)"
-        />
-        <label
-          [for]="name + '-' + i"
-          class="pl-2"
-          >{{ opt }}</label
         >
-      </div>
-    }
+          {{ opt }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
   </fieldset>
 </div>
