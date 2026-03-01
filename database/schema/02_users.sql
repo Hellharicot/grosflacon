@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS users.users (
   email character varying(255) NOT NULL UNIQUE,
   password_hash text NOT NULL,
   role_id integer NOT NULL UNIQUE REFERENCES users.role(id),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE,
+  updated_at TIMESTAMP WITH TIME ZONE
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_role_id ON users.users(role_id);
