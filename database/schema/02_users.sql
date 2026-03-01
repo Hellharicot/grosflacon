@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS users.users (
   created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
-
 CREATE INDEX IF NOT EXISTS idx_users_role_id ON users.users(role_id);
+
