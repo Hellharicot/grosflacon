@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS wines.region(
   UNIQUE (default_name, country_id)
   );
 
-CREATE INDEX idx_region_country ON wines.region(country_id);
+CREATE INDEX IF NOT EXISTS idx_region_country ON wines.region(country_id);
 
 CREATE TABLE IF NOT EXISTS wines.appellation(
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS wines.appellation(
   UNIQUE (default_name, region_id)
   );
 
-CREATE INDEX idx_appellation_region ON wines.appellation(region_id);
+CREATE INDEX IF NOT EXISTS idx_appellation_region ON wines.appellation(region_id);
 
 CREATE TABLE wines.color (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -36,5 +36,5 @@ CREATE TABLE wines.wine (
   vintage INTEGER
 );
 
-CREATE INDEX idx_wine_appellation ON wines.wine(appellation_id);
-CREATE INDEX idx_wine_color ON wines.wine(color_id);
+CREATE INDEX IF NOT EXISTS idx_wine_appellation ON wines.wine(appellation_id);
+CREATE INDEX IF NOT EXISTS idx_wine_color ON wines.wine(color_id);
