@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS references.aroma_family (
 
 CREATE TABLE IF NOT EXISTS references.aroma_subfamily (
   id INTEGER PRIMARY KEY GENERATE ALWAYS AS IDENTITY,
-  aroma_family_id INTEGER REFERENCES references.aroma_family(id),
+  aroma_family_id INTEGER REFERENCES NOT NULL references.aroma_family(id),
   default_name VARCHAR(50) NOT NULL UNIQUE
   );
 
@@ -46,7 +46,7 @@ CREATE INDEX IF NOT EXISTS idx_aroma_subfamily_aroma_family_id ON references.aro
 
 CREATE TABLE IF NOT EXISTS references.aroma (
   id INTEGER PRIMARY KEY GENERATE ALWAYS AS IDENTITY,
-  aroma_subfamily_id INTEGER REFERENCES references.aroma_subfamily(id),
+  aroma_subfamily_id INTEGER NOT NULL REFERENCES references.aroma_subfamily(id),
   default_name VARCHAR(50) NOT NULL UNIQUE
   );
 
