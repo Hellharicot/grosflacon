@@ -355,3 +355,86 @@ INSERT INTO references.criterion_value(criterion_id, value, default_label) VALUE
   ON CONFLICT (default_label) DO NOTHING
   ;
 
+INSERT INTO references.aroma_family(default_name) VALUES
+  ('fruity aromas'),
+  ('floral aromas'),
+	('vegetal aromas'),
+	('spicy aromas'),
+	('candied aromas'),
+	('toasty aromas'),
+	('mineral aromas'),
+	('animal aromas'),
+	('milky aromas'),
+	('yeasty aromas'),
+	ON CONFLICT (default_name) DO NOTHING
+;
+
+\set :fruity_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'fruity aromas'`
+\if :fruity_aromas 
+\else
+	\echo "fruity_aromas not found"
+	quit 1
+\endif
+
+\set :floral_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'floral aromas'`
+\if :floral_aromas
+\else
+	\echo "floral_aromas not found" 
+	quit 1
+\endif
+
+\set :vegetal_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'vegetal aromas'`
+\if :vegetal_aromas
+\else
+	\echo "vegetal_aromas not found" 
+	quit 1
+\endif
+
+\set :spicy_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'spicy aromas'`
+\if :spicy_aromas
+\else
+	\echo "spicy_aromas not found" 
+	quit 1
+\endif
+
+\set :candied_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'candied aromas'`
+\if :candied_aromas
+\else
+	\echo "candied_aromas not found" 
+	quit 1
+\endif
+
+\set :toasty_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'toasty aromas'`
+\if :toasty_aromas
+\else
+	\echo "toasty_aromas not found" 
+	quit 1
+\endif
+
+\set :mineral_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'mineral aromas'`
+\if :mineral_aromas
+\else
+	\echo "mineral_aromas not found" 
+	quit 1
+\endif
+
+\set :animal_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'animal aromas'`
+\if :animal_aromas
+\else
+	\echo "animal_aromas not found" 
+	quit 1
+\endif
+
+\set :milky_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'milky aromas'`
+\if :milky_aromas
+\else
+	\echo "milky_aromas not found" 
+	quit 1
+\endif
+
+\set :yeasty_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'yeasty aromas'`
+\if :yeasty_aromas
+\else
+	\echo "yeasty_aromas not found" 
+	quit 1
+\endif
