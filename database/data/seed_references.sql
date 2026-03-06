@@ -360,7 +360,7 @@ INSERT INTO references.aroma_family(default_name) VALUES
   ('floral aromas'),
 	('vegetal aromas'),
 	('spicy aromas'),
-	('candied aromas'),
+	('candy aromas'),
 	('toasty aromas'),
 	('mineral aromas'),
 	('animal aromas'),
@@ -397,10 +397,10 @@ INSERT INTO references.aroma_family(default_name) VALUES
 	quit 1
 \endif
 
-\set :candied_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'candied aromas'`
-\if :candied_aromas
+\set :candy_aromas `SELECT id FROM references.aroma_family WHERE default_name = 'candy aromas'`
+\if :candy_aromas
 \else
-	\echo "candied_aromas not found" 
+	\echo "candy_aromas not found" 
 	quit 1
 \endif
 
@@ -439,14 +439,14 @@ INSERT INTO references.aroma_family(default_name) VALUES
 	quit 1
 \endif
 
-INSERT INTO references.aromas_subfamily(aroma_family_id,default_name) VALUES
+INSERT INTO references.aroma_subfamily(aroma_family_id,default_name) VALUES
 	(:fruity_aromas,'red fruits'),
 	(:fruity_aromas,'pip fruits'),
 	(:fruity_aromas,'stone fruits'),
 	(:fruity_aromas,'citrus fruits'),
 	(:fruity_aromas,'tropical fruits'),
 	(:fruity_aromas,'dried fruits'),
-	(:fruity_aromas,'candied fruits'),
+	(:fruity_aromas,'jammy fruits'),
 	(:vegetal_aromas,'herbs'),
 	(:vegetal_aromas,'woods'),
 	(:vegetal_aromas,'vegetables'),
@@ -455,7 +455,7 @@ INSERT INTO references.aromas_subfamily(aroma_family_id,default_name) VALUES
   (:floral_aromas,'floral aromas'),
 	(:vegetal_aromas,'vegetal aromas'),
 	(:spicy_aromas,'spicy aromas'),
-	(:candied_aromas,'candied aromas'),
+	(:candy_aromas,'candy aromas'),
 	(:toasty_aromas,'toasty aromas'),
 	(:mineral_aromas,'mineral aromas'),
 	(:animal_aromas,'animal aromas'),
@@ -464,150 +464,245 @@ INSERT INTO references.aromas_subfamily(aroma_family_id,default_name) VALUES
 	ON CONFLICT (default_name) DO NOTHING
 ;
 
-\set :red_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'red fruits'`
+\set :red_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'red fruits'`
 \if :red_fruits 
 \else
 	\echo "red_fruits not found"
 	quit 1
 \endif
 
-\set :pip_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'pip fruits'`
+\set :pip_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'pip fruits'`
 \if :pip_fruits
 \else
 	\echo "pip_fruits not found"
 	quit 1
 \endif
 
-\set :stone_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'stone fruits'` 
+\set :stone_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'stone fruits'` 
 \if :stone_fruits
 \else
 	\echo "stone_fruits not found"
 	quit 1
 \endif
 
-\set :citrus_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'citrus fruits'`
+\set :citrus_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'citrus fruits'`
 \if :citrus_fruits
 \else
 	\echo "citrus_fruits not found"
 	quit 1
 \endif
 
-\set :tropical_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'tropical fruit'`s
+\set :tropical_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'tropical fruit'`s
 \if :tropical_fruits
 \else
 	\echo "tropical_fruits not found"
 	quit 1
 \endif
 
-\set :dried_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'dried fruit'`s
+\set :dried_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'dried fruit'`s
 \if :dried_fruits
 \else
 	\echo "dried_fruits not found"
 	quit 1
 \endif
 
-\set :candied_fruits `SELECT id FROM references.aromas_subfamily WHERE default_name = 'candied fruit'`s
-\if :candied_fruits
+\set :jammy_fruits `SELECT id FROM references.aroma_subfamily WHERE default_name = 'jammy fruits'`s
+\if :jammy_fruits
 \else
-	\echo "candied_fruits not found"
+	\echo "jammy_fruits not found"
 	quit 1
 \endif
 
-\set :herbs `SELECT id FROM references.aromas_subfamily WHERE default_name = 'herbs'`
+\set :herbs `SELECT id FROM references.aroma_subfamily WHERE default_name = 'herbs'`
 \if :herbs
 \else
 	\echo "herbs not found"
 	quit 1
 \endif
 
-\set :woods `SELECT id FROM references.aromas_subfamily WHERE default_name = 'woods'`
+\set :woods `SELECT id FROM references.aroma_subfamily WHERE default_name = 'woods'`
 \if :woods
 \else
 	\echo "woods not found"
 	quit 1
 \endif
 
-\set :vegetables `SELECT id FROM references.aromas_subfamily WHERE default_name = 'vegetables'`
+\set :vegetables `SELECT id FROM references.aroma_subfamily WHERE default_name = 'vegetables'`
 \if :vegetables
 \else
 	\echo "vegetables not found"
 	quit 1
 \endif
 
-\set :other_plants `SELECT id FROM references.aromas_subfamily WHERE default_name = 'other plants'`
+\set :other_plants `SELECT id FROM references.aroma_subfamily WHERE default_name = 'other plants'`
 \if :other_plants
 \else
 	\echo "other_plants not found"
 	quit 1
 \endif
 
-\set :sub_fruity_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'fruity aromas'`
+\set :sub_fruity_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'fruity aromas'`
 \if :fruity_aromas 
 \else
-	\echo "fruity_aromas not found"
+	\echo "sub_fruity_aromas not found"
 	quit 1
 \endif
 
-\set :sub_floral_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'floral aromas'`
+\set :sub_floral_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'floral aromas'`
 \if :floral_aromas 
 \else
-	\echo "floral_aromas not found"
+	\echo "sub_floral_aromas not found"
 	quit 1
 \endif
 
-\set :sub_vegetal_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'vegetal aromas'`
+\set :sub_vegetal_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'vegetal aromas'`
 \if :vegetal_aromas 
 \else
-	\echo "vegetal_aromas not found"
+	\echo "sub_vegetal_aromas not found"
 	quit 1
 \endif
 
-\set :sub_spicy_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'spicy aromas'`
+\set :sub_spicy_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'spicy aromas'`
 \if :spicy_aromas 
 \else
-	\echo "spicy_aromas not found"
+	\echo "sub_spicy_aromas not found"
 	quit 1
 \endif
 
-\set :sub_candied_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'candied aromas'`
-\if :candied_aromas 
+\set :sub_candy_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'candy aromas'`
+\if :candy_aromas 
 \else
-	\echo "candied_aromas not found"
+	\echo "sub_candy_aromas not found"
 	quit 1
 \endif
 
-\set :sub_toasty_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'toasty aromas'`
+\set :sub_toasty_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'toasty aromas'`
 \if :toasty_aromas 
 \else
-	\echo "toasty_aromas not found"
+	\echo "sub_toasty_aromas not found"
 	quit 1
 \endif
 
-\set :sub_mineral_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'mineral aromas'`
+\set :sub_mineral_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'mineral aromas'`
 \if :mineral_aromas 
 \else
-	\echo "mineral_aromas not found"
+	\echo "sub_mineral_aromas not found"
 	quit 1
 \endif
 
-\set :sub_animal_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'animal aromas'`
+\set :sub_animal_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'animal aromas'`
 \if :animal_aromas 
 \else
-	\echo "animal_aromas not found"
+	\echo "sub_animal_aromas not found"
 	quit 1
 \endif
 
-\set :sub_milky_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'milky aromas'`
+\set :sub_milky_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'milky aromas'`
 \if :milky_aromas 
 \else
-	\echo "milky_aromas not found"
+	\echo "sub_milky_aromas not found"
 	quit 1
 \endif
 
-\set :sub_yeasty_aromas `SELECT id FROM references.aromas_subfamily WHERE default_name = 'yeasty aromas'`
+\set :sub_yeasty_aromas `SELECT id FROM references.aroma_subfamily WHERE default_name = 'yeasty aromas'`
 \if :yeasty_aromas 
 \else
-	\echo "yeasty_aromas not found"
+	\echo "sub_yeasty_aromas not found"
 	quit 1
 \endif
 
+INSERT INTO references.aroma(aroma_subfamily_id,default_name) VALUES
+	(:red_fruits,'raspberries'),
+	(:red_fruits,'blackcurrants'),
+	(:red_fruits,'strawberries'),
+	(:red_fruits,'blueberries'),
+	(:pip_fruits,'apples'),
+	(:pip_fruits,'pears'),
+	(:pip_fruits,'quinces'),
+	(:stone_fruits,'cherries'),
+	(:stone_fruits,'plums'),
+	(:stone_fruits,'apricots'),
+	(:stone_fruits,'peaches'),
+	(:citrus_fruits,'lemons'),
+	(:citrus_fruits,'oranges'),
+	(:citrus_fruits,'mandarines'),
+	(:citrus_fruits,'grapefruits'),
+	(:citrus_fruits,'lemon zests'),
+	(:citrus_fruits,'orange zests'),
+	(:tropical_fruits,'pineapples'),
+	(:tropical_fruits,'mangos'),
+	(:tropical_fruits,'bananas'),
+	(:tropical_fruits,'guavas'),
+	(:tropical_fruits,'passion fruits'),
+	(:tropical_fruits,'lychees'),
+	(:dried_fruits,'almonds'),
+	(:dried_fruits,'hazelnuts'),
+	(:dried_fruits,'walnuts'),
+	(:dried_fruits,'figs'),
+	(:dried_fruits,'dates'),
+	(:dried_fruits,'prunes'),
+	(:jammy_fruits,'marmelade'),
+	(:jammy_fruits,'strawberry jam'),
+	(:jammy_fruits,'cherry jam'),
+	(:jammy_fruits,'red fruits jam'),
+	(:sub_floral_aromas,'violets'),
+	(:sub_floral_aromas,'roses'),
+	(:sub_floral_aromas,'honeysuckle'),
+	(:sub_floral_aromas,'jamsin'),
+	(:sub_floral_aromas,'orange blossoms'),
+	(:sub_floral_aromas,'lime'),
+	(:sub_floral_aromas,'acacia blossoms'),
+	(:sub_floral_aromas,'lavender'),
+	(:herbs,'cut grass'),
+	(:herbs,'ferns'),
+	(:herbs,'mint'),
+	(:herbs,'verbena'),
+	(:herbs,'thyme'),
+	(:herbs,'dill'),
+	(:herbs,'eucalyptus'),
+	(:woods,'oak'),
+	(:woods,'pine'),
+	(:woods,'cedar'),
+	(:vegetables,'bell pepper'),
+	(:vegetables,'asparagus'),
+	(:vegetables,'tomatos'),
+	(:vegetables,'fennel'),
+	(:other_plants,'hay'),
+	(:other_plants,'tobacco'),
+	(:other_plants,'green tea'),
+	(:other_plants,'black tea'),
+	(:other_plants,'undergrowths'),
+	(:other_plants,'mushrooms'),
+	(:other_plants,'truffles'),
+	(:other_plants,'humus'),
+	(:sub_spicy_aromas,'vanilla'),
+	(:sub_spicy_aromas,'black pepper'),
+	(:sub_spicy_aromas,'white pepper'),
+	(:sub_spicy_aromas,'cinnamon'),
+	(:sub_spicy_aromas,'liquorice'),
+	(:sub_spicy_aromas,'nutmeg'),
+	(:sub_spicy_aromas,'cloves'),
+	(:sub_spicy_aromas,'star anis'),
+	(:sub_spicy_aromas,'curry'),
+	(:sub_candy_aromas,'caramel'),
+	(:sub_candy_aromas,'honey'),
+	(:sub_candy_aromas,'almond paste'),
+	(:sub_toasty_aromas,'tar'),
+	(:sub_toasty_aromas,'smoked'),
+	(:sub_toasty_aromas,'coffee'),
+	(:sub_toasty_aromas,'fireplace'),
+	(:sub_toasty_aromas,'chocolate'),
+	(:sub_toasty_aromas,'grilled'),
+	(:sub_toasty_aromas,'toasted'),
+	(:sub_mineral_aromas,'flint'),
+	(:sub_mineral_aromas,'chalk'),
+	(:sub_mineral_aromas,'petrol'),
+	(:sub_animal_aromas,'leather'),
+	(:sub_animal_aromas,'musk'),
+	(:sub_milky_aromas,'butter'),
+	(:sub_milky_aromas,'yogurt'),
+	(:sub_yeasty_aromas,'yeasts'),
+	(:sub_yeasty_aromas,'bread'),
+	(:sub_yeasty_aromas,'brioche'),
+	ON CONFLICT (default_name) DO NOTHING
+	;
