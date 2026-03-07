@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users.role (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name character varying(50) NOT NULL UNIQUE,
+  name character varying(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS users.users (

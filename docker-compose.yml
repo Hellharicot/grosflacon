@@ -10,7 +10,7 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
     volumes:
-      - ./database/docker-entrypoint-initdb.d
+      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   backend:
     build: ./backend
