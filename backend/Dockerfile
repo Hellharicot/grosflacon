@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE ${BACKEND_PORT}
 
-CMD ["pnpm","start"]
+CMD ["pnpm","run","dev"]
