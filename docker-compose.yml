@@ -6,6 +6,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST=${DB_HOST}
       - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
       - "${DB_PORT}:${DB_PORT}"
@@ -26,6 +27,7 @@ services:
         - action: rebuild
           path: ./backend/package.json
     environment:
+      - BACKEND_PORT=${BACKEND_PORT}
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
       - NODE_ENV=development
     command: pnpm run dev 
