@@ -8,4 +8,23 @@ import { LinkButtonComponent } from '@components/link-button/link-button.compone
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
-export class HomepageComponent { }
+
+export class HomepageComponent {
+  fetchData() {
+    fetch('http://localhost:3000/db')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Données reçues: ', data);
+        alert(JSON.stringify(data, null, 2));
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération des données:', error);
+        alert('Erreur lors de la récupération des données');
+      });
+  }
+}

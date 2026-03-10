@@ -46,7 +46,10 @@ services:
             - node_modules/
         - action: rebuild
           path: ./frontend/package.json
-    command: pnpm exec ng serve --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: pnpm exec ng serve --proxy-config --host 0.0.0.0
 
 volumes:
   postgres_data:

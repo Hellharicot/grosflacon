@@ -1,10 +1,12 @@
 import express from "express";
 import { logger } from "./logger.js";
 import { query } from "./db.js";
+import cors from "cors";
 
 const port = process.env.BACKEND_PORT;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
