@@ -17,6 +17,10 @@ services:
     build: ./backend
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+      - /app/node_modules
     develop:
       watch:
         - action: sync
@@ -30,7 +34,9 @@ services:
       - BACKEND_PORT=${BACKEND_PORT}
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
       - NODE_ENV=development
-    command: pnpm run dev 
+    command: pnpm run dev
+    depends_on:
+      - db
 
   frontend:
     build:
