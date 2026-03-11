@@ -11,7 +11,7 @@ import { LinkButtonComponent } from '@components/link-button/link-button.compone
 
 export class HomepageComponent {
   fetchData() {
-    fetch('http://localhost:3000/db')
+    fetch('http://localhost:3000/api/users/roles')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
