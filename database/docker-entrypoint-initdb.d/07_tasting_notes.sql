@@ -24,15 +24,26 @@ CREATE TABLE IF NOT EXISTS tasting_notes.aromas (
 	note_id INTEGER NOT NULL REFERENCES tasting_notes.note(id),
 	criterion_id INTEGER NOT NULL REFERENCES refs.criterion(id),
 	aroma_id INTEGER NOT NULL REFERENCES refs.aroma(id),
-	UNIQUE (note_id, criterion_id, aroma_id),
-	CONSTRAINT check_criterion_is_aroma_selector
-	CHECK (criterion_id IN (
-		SELECT id FROM refs.criterion c
-		JOIN refs.input_type it ON c.input_type_id = it.id
-		WHERE it.name = 'aroma_selector'
-	))
+	UNIQUE (note_id, criterion_id, aroma_id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_aromas_note_id ON tasting_notes.aromas(note_id);
 CREATE INDEX IF NOT EXISTS idx_aromas_criterion_id ON tasting_notes.aromas(criterion_id);
 CREATE INDEX IF NOT EXISTS idx_aromas_aroma_id ON tasting_notes.aromas(aroma_id);
+
+CREATE OR REPLACE FUNCTION tasting_notes.is_aroma_selector()
+	RETURNS TRIGGER AS $$
+    BEGIN
+        PERFORM 1
+        FROM refs.criterion c
+        JOIN refs.input_type it ON c.input_type_id = it.id
+        WHERE c.id = NEW.criterion_id AND it.name = 'aroma_selector';
+
+        IF NOT FOUND THEN
+            RAISE EXCEPTION 'criterion_id must be an aroma_selector';
+        END IF;
+        RETURN NEW;
+    END;
+		$$ LANGUAGE plpgsql;
+
+
