@@ -1,6 +1,7 @@
 import express from "express";
-import { logger } from "./logger.js";
-import { query } from "./db.js";
+import { HTTP_STATUS } from "./shared/httpCodes.js";
+import { logger } from "./shared/logger.js";
+import { query } from "./config/db.js";
 import cors from "cors";
 
 const port = process.env.BACKEND_PORT;
@@ -23,7 +24,7 @@ app.get("/db", async (req, res) => {
     res.json(db.rows);
   } catch (err) {
     logger.error(err);
-    res.status(500).send("Server error");
+    res.status(HTTP_STATUS.SERVER_ERROR).send("Server error");
   }
 });
 
