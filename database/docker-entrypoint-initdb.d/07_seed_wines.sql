@@ -4,7 +4,7 @@ INSERT INTO wines.color (default_name) VALUES
 	('rosé'),
 	('orange'),
 	('yellow')
-	ON CONFLIT (default_name) DO NOTHING;
+	ON CONFLICT (default_name) DO NOTHING;
 
 INSERT INTO wines.country (default_name, iso_code) VALUES
 	('Afghanistan','AF'),
@@ -255,8 +255,8 @@ INSERT INTO wines.country (default_name, iso_code) VALUES
 	('Yemen','YE'),
 	('Zambia','ZM'),
 	('Zimbabwe','ZW'),
-	('Åland Islands AX')
-ON CONFLICT (iso_code, default_name) DO NOTHING;
+	('Åland Islands','AX')
+ON CONFLICT (iso_code) DO NOTHING;
 
 INSERT INTO wines.region (country_id,default_name) VALUES
 	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'France'),
@@ -274,7 +274,7 @@ INSERT INTO wines.region (country_id,default_name) VALUES
 	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'Languedoc-Roussillon'),
 	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'South West'),
 	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'Provence'),
-	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'Champagne'),
+	((SELECT id FROM wines.country WHERE iso_code = 'FR'),'Champagne')
 ON CONFLICT (country_id, default_name) DO NOTHING;
 
 INSERT INTO wines.appellation (region_id, default_name) VALUES
@@ -358,9 +358,9 @@ INSERT INTO wines.appellation (region_id, default_name) VALUES
 	((SELECT id FROM wines.region WHERE default_name='South West'),'IGP Thézac-Perricard'),
 	((SELECT id FROM wines.region WHERE default_name='Loire Valley'),'IGP Urfé'),
 	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'IGP Vallée du Paradis'),
-	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'(IGP Vallée du Torgan'),
+	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'IGP Vallée du Torgan'),
 	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'IGP Vicomté d''Aumelas'),
-	((SELECT id FROM wines.region WHERE default_name='Savoie-Bugey'),'IGP Vin des Allobroges')
+	((SELECT id FROM wines.region WHERE default_name='Savoie-Bugey'),'IGP Vin des Allobroges'),
 	-- AOC
 	((SELECT id FROM wines.region WHERE default_name='Cognac'),'Pineau des Charentes'),
 	((SELECT id FROM wines.region WHERE default_name='Corsica'),'Ajaccio'),
@@ -377,7 +377,7 @@ INSERT INTO wines.appellation (region_id, default_name) VALUES
 	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'Banyuls'),
 	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'Banyuls grand cru'),
 	((SELECT id FROM wines.region WHERE default_name='Bordeaux'),'Barsac'),
-	((SELECT id FROM wines.region WHERE default_name='Bourgundy'),'Bâtard-Montrachet'),
+	((SELECT id FROM wines.region WHERE default_name='Burgundy'),'Bâtard-Montrachet'),
 	((SELECT id FROM wines.region WHERE default_name='South West'),'Béarn'),
 	((SELECT id FROM wines.region WHERE default_name='Beaujolais'),'Beaujolais'),
 	((SELECT id FROM wines.region WHERE default_name='Rhone Valley'),'Beaumes de Venise'),
@@ -505,7 +505,7 @@ INSERT INTO wines.appellation (region_id, default_name) VALUES
 	((SELECT id FROM wines.region WHERE default_name='Languedoc-Roussillon'),'Fitou'),
 	((SELECT id FROM wines.region WHERE default_name='Burgundy'),'Fixin'),
 	((SELECT id FROM wines.region WHERE default_name='Beaujolais'),'Fleurie'),
-	((SELECT id FROM wines.region WHERE default_name='Armagnac Floc de Gascogne'),
+	((SELECT id FROM wines.region WHERE default_name='South West'),'Floc de Gascogne'),
 	((SELECT id FROM wines.region WHERE default_name='Bordeaux'),'Fronsac'),
 	((SELECT id FROM wines.region WHERE default_name='South West'),'Fronton'),
 	((SELECT id FROM wines.region WHERE default_name='South West'),'Gaillac'),
