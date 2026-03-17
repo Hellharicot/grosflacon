@@ -1,4 +1,9 @@
-import { executeQuery } from "../shared/db.js";
+import { query } from "../shared/db.js";
+import {
+  successResponse,
+  notFound,
+  serverError,
+} from "../shared/response-helpers.js";
 
 export const getAllAromas = async (req, res) => {
   const sql = `
@@ -11,7 +16,15 @@ export const getAllAromas = async (req, res) => {
 		JOIN refs.aroma_family f ON sf.aroma_family_id = f.id
 		ORDER BY f.default_name, sf.default_name, a.default_name
 			`;
-  await executeQuery(req, res, sql, { label: "aroma" });
+  try {
+    const { rows } = await query(sql);
+    if (!rows || rows.length === 0) {
+      return notFound(rows);
+    }
+    return successResponse(res, rows, "Aromas successfully fetched");
+  } catch (err) {
+    serverError(res, err, "Error getting aromas");
+  }
 };
 
 export const getCriteria = async (req, res) => {
@@ -29,5 +42,13 @@ export const getCriteria = async (req, res) => {
 			JOIN refs.category cat ON c.category_id = cat.id
 			ORDER BY cat.default_name, c.default_name, v.value
 			`;
-  await executeQuery(req, res, sql, { label: "criteria" });
+  try {
+    const { rows } = await query(sql);
+    if (!rows || rows.length === 0) {
+      return notFound(rows);
+    }
+    return successResponse(res, rows, "Criteria successfully fetched");
+  } catch (err) {
+    serverError(res, err, "Error getting criteria");
+  }
 };
