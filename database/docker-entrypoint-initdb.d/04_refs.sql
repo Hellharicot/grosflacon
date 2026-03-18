@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS refs.category (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   default_name VARCHAR(50) NOT NULL UNIQUE,
+	position INTEGER UNIQUE,
   default_description TEXT
   );
 
@@ -14,8 +15,10 @@ CREATE TABLE IF NOT EXISTS refs.criterion (
   category_id INTEGER REFERENCES refs.category(id),
   input_type_id INTEGER REFERENCES refs.input_type(id),
   default_name VARCHAR(255) NOT NULL UNIQUE,
+	position INTEGER,
   default_description TEXT,
-  UNIQUE(category_id, default_name)
+  UNIQUE(category_id, default_name),
+	UNIQUE(category_id, position)
   );
 
 CREATE INDEX IF NOT EXISTS idx_criterion_category_id ON refs.criterion(category_id);
@@ -51,3 +54,9 @@ CREATE TABLE IF NOT EXISTS refs.aroma (
   );
 
 CREATE INDEX IF NOT EXISTS idx_aroma_aroma_subfamily_id ON refs.aroma(aroma_subfamily_id);
+
+CREATE TABLE IF NOT EXISTS refs.criterion_aroma (
+	id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	aroma_id INTEGER REFERENCES refs.aroma(id),
+	criterion_id INTEGER REFERENCES refs.criterion(id)
+	);

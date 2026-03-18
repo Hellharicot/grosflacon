@@ -6,43 +6,43 @@ INSERT INTO refs.input_type(name) VALUES
   ON CONFLICT (name) DO NOTHING
   ;
 
-INSERT INTO refs.category(default_name, default_description) VALUES
-  ('sight','visual description of the wine'),
-  ('nose','olfactory description of the wine'),
-  ('palate', 'gustatory  description of the wine'),
-  ('rating', 'overall appreciation of the wine')
+INSERT INTO refs.category(default_name, position, default_description) VALUES
+  ('sight',1,'visual description of the wine'),
+  ('nose',2,'olfactory description of the wine'),
+  ('palate',3,'gustatory  description of the wine'),
+  ('rating',4,'overall appreciation of the wine')
   ON CONFLICT (default_name) DO NOTHING
   ;
 
-INSERT INTO refs.criterion(category_id, input_type_id, default_name, default_description) VALUES
+INSERT INTO refs.criterion(category_id, input_type_id, default_name, position, default_description) VALUES
 -- VISUAL CRITERIONS
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'clarity', 'clarity of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'concentration', 'concentration of color in the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'primary color', 'color that you perceive when looking at the heart of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'secondary color', 'color that you perceive when looking at the edges of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'rim variation', 'length of color gradient for center to edges of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tearing', 'thickness of the tears of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'staining', 'color of the tears of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'sediments', 'amount of sediments at the bottom of the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'effervescence', 'amount of gas bubbles in the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'clarity', 1, 'clarity of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'concentration', 2, 'concentration of color in the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'primary color', 3, 'color that you perceive when looking at the heart of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'secondary color', 4, 'color that you perceive when looking at the edges of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'rim variation', 5, 'length of color gradient for center to edges of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tearing', 6, 'thickness of the tears of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'staining', 7, 'color of the tears of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'sediments', 9, 'amount of sediments at the bottom of the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'sight'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'effervescence', 8, 'amount of gas bubbles in the wine'),
   -- OLFACTORY CRITERIONS
-  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'checkbox'), 'faults', 'noticeable faults in the wine if any'),
-  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'intensity', 'intensity of the aromas'),
-  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'aroma_selector'), 'aromas', 'noticeable aromas in the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'checkbox'), 'faults', 2, 'noticeable faults in the wine if any'),
+  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'intensity', 1, 'intensity of the aromas'),
+  ((SELECT id FROM refs.category WHERE default_name = 'nose'), (SELECT id FROM refs.input_type WHERE name = 'aroma_selector'), 'aromas', 3, 'noticeable aromas in the wine'),
   -- GUSTATORY CRITERIONS
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'sweetness', 'how sweet the wine tastes'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'acidity', 'how acidic of the wine tastes'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'alcohol', 'how rich in alcohol the wine tastes'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tannins volume', 'how present the tannins are in the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tannins texture', 'how the tannins feel on the touch of the tongue and lips'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'body', 'how rich the wine tastes'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'bitterness', 'how bitter the wine tastes'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'aroma_selector'), 'aromas', 'noticeable aromas in the wine within the mouth'),
-  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'finish', 'how long the wine lasts in the mouth'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'sweetness', 1, 'how sweet the wine tastes'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'acidity', 2, 'how acidic of the wine tastes'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'alcohol', 3, 'how rich in alcohol the wine tastes'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tannins volume', 4, 'how present the tannins are in the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'tannins texture', 5, 'how the tannins feel on the touch of the tongue and lips'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'body', 7, 'how rich the wine tastes'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'bitterness', 6, 'how bitter the wine tastes'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'aroma_selector'), 'flavors', 8, 'noticeable flavors in the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'palate'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'finish', 9, 'how long the wine lasts in the mouth'),
   -- RATING CRITERIONS
-  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'score', 'how much do you appreciate the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'heart stroke', 'whether you have a crush on the wine'),
-  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'input'), 'comment', 'your comment about the wine')
+  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'score',1,  'how much do you appreciate the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'radio'), 'heart stroke', 2, 'whether you have a crush on the wine'),
+  ((SELECT id FROM refs.category WHERE default_name = 'rating'), (SELECT id FROM refs.input_type WHERE name = 'input'), 'comment', 3, 'your comment about the wine')
   ON CONFLICT (default_name) DO NOTHING
 ;
 
@@ -286,4 +286,12 @@ INSERT INTO refs.aroma(aroma_subfamily_id,default_name) VALUES
 	((SELECT id FROM refs.aroma_subfamily WHERE default_name = 'yeasty aromas'),'bread'),
 	((SELECT id FROM refs.aroma_subfamily WHERE default_name = 'yeasty aromas'),'brioche')
 	ON CONFLICT (default_name) DO NOTHING
+	;
+
+INSERT INTO refs.criterion_aroma (criterion_id, aroma_id)
+	SELECT (SELECT id FROM refs.criterion WHERE default_name = 'aromas'), id FROM refs.aroma
+	;
+
+	INSERT INTO refs.criterion_aroma (criterion_id, aroma_id)
+	SELECT (SELECT id FROM refs.criterion WHERE default_name = 'flavors'), id FROM refs.aroma
 	;

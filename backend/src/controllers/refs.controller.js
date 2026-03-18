@@ -21,11 +21,73 @@ export const getAllAromas = async (req, res) => {
     if (!rows || rows.length === 0) {
       return notFound(rows);
     }
-    return successResponse(res, rows, "Aromas successfully fetched");
+    return rows;
   } catch (err) {
     serverError(res, err, "Error getting aromas");
   }
 };
+
+async function structureCriteria(data) {
+  const structuredData = [];
+  const criteriaMap = new Map();
+  const aromas = await getAllAromas();
+
+  const groupedAromas = aromas.reduce((group, aroma) => {
+    if (!group[aroma.family]) {
+      group[aroma.family] = {};
+    }
+    if (!group[aroma.family][aroma.subfamily]) {
+      group[aroma.family][aroma.subfamily] = [];
+    }
+    group[aroma.family][aroma.subfamily].push(aroma.aroma);
+    return group;
+  }, {});
+
+  data.forEach((item) => {
+    const {
+      category,
+      criterion,
+      input_type,
+      default_label,
+      default_description,
+    } = item;
+
+    if (!criteriaMap.has(criterion)) {
+      const newCriterion = {
+        criterion,
+        default_description,
+        category,
+        opts: [],
+        input_type,
+      };
+      structuredData.push(newCriterion);
+      criteriaMap.set(criterion, newCriterion);
+    }
+
+    const criterionObj = criteriaMap.get(criterion);
+
+    if (!criterionObj.category.includes(category)) {
+      criterionObj.category.push(category);
+    }
+
+    if (!criterionObj.default_description.includes(default_description)) {
+      criterionObj.default_description.push(default_description);
+    }
+
+    if (!criterionObj.input_type.includes(input_type)) {
+      criterionObj.input_type.push(input_type);
+    }
+
+    if (default_label != null && !criterionObj.opts.includes(default_label)) {
+      criterionObj.opts.push(default_label);
+    }
+
+    if (input_type === "aroma_selector") {
+      criterionObj.opts.push(groupedAromas);
+    }
+  });
+  return structuredData;
+}
 
 export const getCriteria = async (req, res) => {
   const sql = `
@@ -36,18 +98,23 @@ export const getCriteria = async (req, res) => {
 			  v.value,
 			  v.default_label,
 				c.default_description
-			FROM refs.criterion_value v
-			JOIN refs.criterion c ON v.criterion_id = c.id
+			FROM refs.criterion c
 			JOIN refs.input_type i ON c.input_type_id = i.id
 			JOIN refs.category cat ON c.category_id = cat.id
-			ORDER BY cat.default_name, c.default_name, v.value
+			LEFT JOIN refs.criterion_value v ON c.id = v.criterion_id
+			ORDER BY cat.position, c.position, v.value
 			`;
   try {
     const { rows } = await query(sql);
     if (!rows || rows.length === 0) {
       return notFound(rows);
     }
-    return successResponse(res, rows, "Criteria successfully fetched");
+    const structuredRows = await structureCriteria(rows);
+    return successResponse(
+      res,
+      structuredRows,
+      "Criteria successfully fetched",
+    );
   } catch (err) {
     serverError(res, err, "Error getting criteria");
   }
