@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { KeyValuePipe } from '@angular/common';
 import { ApiService } from '@app/services/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,8 +29,7 @@ export interface FormStep {
     FormInputComponent,
     FormRadioComponent,
     FormCheckboxComponent,
-    //FormAromaSelectorComponent,
-    KeyValuePipe,
+    FormAromaSelectorComponent,
   ],
   templateUrl: './new-tasting-note.html',
   styleUrl: './new-tasting-note.css',

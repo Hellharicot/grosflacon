@@ -1,42 +1,49 @@
-<h2 class="text-center">Que dégustez-vous ?</h2>
+<h2 class="text-center">What are you tasting?</h2>
 <form
   [formGroup]="wineIdForm"
   method="post"
   class="w-xl"
 >
-  @for (step of steps; track step.name) {
-    @switch (step.type) {
+  @for (step of steps; track step.criterion) {
+    @switch (step.input_type) {
       @case ('input') {
         <app-form-input
-          [placeholder]="step.placeholder"
-          [name]="step.name"
+          [placeholder]="step.criterion"
+          [name]="step.criterion"
           [parentForm]="wineIdForm"
         ></app-form-input>
       }
       @case ('radio') {
         <app-form-radio
-          [name]="step.name"
-          [placeholder]="step.placeholder"
+          [name]="step.criterion"
+          [placeholder]="step.criterion"
           [options]="$any(step.opts) ?? []"
         ></app-form-radio>
       }
       @case ('checkbox') {
         <app-form-checkbox
-          [name]="step.name"
-          [placeholder]="step.placeholder"
+          [name]="step.criterion"
+          [placeholder]="step.criterion"
           [options]="$any(step.opts) ?? []"
         ></app-form-checkbox>
       }
-      @case ('aroma-selector') {
+      @case ('aroma_selector') {
         <app-form-aroma-selector
-          [name]="step.name"
-          [placeholder]="step.placeholder"
+          [name]="step.criterion"
+          [placeholder]="step.criterion"
           [families]="$any(step.opts) ?? []"
         ></app-form-aroma-selector>
       }
     }
   }
 </form>
+<!--
+  <app-form-aroma-selector
+    [name]="step.criterion"
+    [placeholder]="step.criterion"
+    [families]="$any(step.opts) ?? []"
+  ></app-form-aroma-selector>
+-->
 <input
   type="submit"
   value="Suivant"

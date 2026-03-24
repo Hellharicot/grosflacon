@@ -1,32 +1,27 @@
-import { Component, input, model, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AromaFamily } from '@app/pages/new-tasting-note/formstep';
+import { KeyValuePipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Aromas } from '@app/pages/new-tasting-note/new-tasting-note.component';
 
 @Component({
   selector: 'app-form-aroma-selector',
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule, KeyValuePipe],
   templateUrl: './form-aroma-selector.html',
   styleUrl: './form-aroma-selector.css',
 })
 export class FormAromaSelectorComponent {
-  placeholder = input.required<string>();
-  name = input.required<string>();
-  value = model<string[]>([]);
-  families = input.required<AromaFamily[]>();
-  openSubFamily = signal<string | null>(null);
+  @Input() name!: string;
+  @Input() placeholder!: string;
+  @Input() families: Aromas[] = [];
 
-  toggleShow(subName: string) {
-    this.openSubFamily.update((current) =>
-      current === subName ? null : subName,
+  aromaControl = new FormControl<string[]>([]);
+
+  toggleOptions(aroma: string) {
+    const current = this.aromaControl.value || [];
+    this.aromaControl.setValue(
+      current.includes(aroma)
+        ? current.filter((item) => item !== aroma)
+        : [...current, aroma]
     );
-  }
-
-  toggleOptions(opt: string) {
-    const current = this.value();
-    if (current.includes(opt)) {
-      this.value.set(current.filter((item) => item !== opt));
-    } else {
-      this.value.set([...current, opt]);
-    }
   }
 }

@@ -1,80 +1,29 @@
 <div class="bg-primary-400 m-2 items-center rounded-xl p-4">
   <fieldset class="flex w-full flex-wrap items-center justify-around gap-3">
-    <legend class="mb-2 text-center font-bold">{{ placeholder() }}</legend>
-
-    @for (family of families(); track family.family) {
-      <div class="mb-6">
-        <h3 class="mb-2 text-center font-bold uppercase">
-          {{ family.family }}
-        </h3>
-
-        @if (family.subfamilies) {
-          @for (sub of family.subfamilies; track sub.subfamily) {
-            <div class="mb-6">
-              <h4 class="text-center font-semibold">
-                {{ sub.subfamily }}
-              </h4>
-              <div class="flex flex-wrap justify-center gap-3">
-                @for (aroma of sub.aromas; track aroma; let i = $index) {
-                  <div class="flex flex-nowrap items-center">
-                    <input
-                      type="checkbox"
-                      [name]="aroma"
-                      [id]="name() + '-' + aroma + '-' + i"
-                      [value]="aroma"
-                      [checked]="value().includes(aroma)"
-                      (change)="toggleOptions(aroma)"
-                    />
-                    <label
-                      [for]="name() + '-' + aroma + '-' + i"
-                      class="pl-2"
-                      >{{ aroma }}</label
-                    >
-                  </div>
-                }
+    <legend class="mb-2 text-center font-bold">{{ placeholder }}</legend>
+    @for (category of families[0] | keyvalue; track category.key) {
+      @for (subcategory of category.value | keyvalue; track subcategory.key) {
+        <div class="mb-6">
+          <h3 class="mb-2 text-center font-bold uppercase">
+            {{ subcategory.key }}
+          </h3>
+          <div class="flex flex-wrap justify-center gap-3">
+            @for (aroma of subcategory.value; track aroma) {
+              <div class="flex flex-nowrap items-center">
+                <input
+                  type="checkbox"
+                  [checked]="aromaControl.value?.includes(aroma)"
+                  (change)="toggleOptions(aroma)"
+                />
+                <label
+                  class="pl-2"
+                  >{{ aroma }}
+                </label>
               </div>
-            </div>
-          }
-        }
-        @if (family.aromas) {
-          <div class="mb-4">
-            <div class="flex flex-wrap justify-center gap-3">
-              @for (aroma of family.aromas; track aroma; let i = $index) {
-                <div class="flex flex-nowrap items-center">
-                  <input
-                    type="checkbox"
-                    [name]="aroma"
-                    [id]="name() + '-' + aroma + '-' + i"
-                    [value]="aroma"
-                    [checked]="value().includes(aroma)"
-                    (change)="toggleOptions(aroma)"
-                  />
-                  <label
-                    [for]="name() + '-' + aroma + '-' + i"
-                    class="pl-2"
-                    >{{ aroma }}</label
-                  >
-                </div>
-              }
-            </div>
+            }
           </div>
-        }
-      </div>
+        </div>
+      }
     }
-    <!--<div class="flex items-center">
-        <input
-          type="checkbox"
-          [name]="name()"
-          [id]="name + '-' + i"
-          [value]="opt"
-          [checked]="value().includes(opt)"
-          (change)="toggleoptions(opt)"
-        />
-        <label
-          [for]="name + '-' + i"
-          class="pl-2"
-          >{{ opt }}</label
-        >
-      </div>-->
   </fieldset>
 </div>
