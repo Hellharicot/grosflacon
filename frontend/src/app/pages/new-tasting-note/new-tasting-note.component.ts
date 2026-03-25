@@ -55,15 +55,6 @@ export class NewTastingNoteComponent implements OnInit {
       next: (response: ApiResponse) => {
         this.responseData = response;
         this.steps = this.responseData.data;
-        const aromaStep = this.steps.find(step => step.criterion === 'aromas');
-        const flavorStep = this.steps.find(step => step.criterion === 'flavors');
-        console.log(this.steps);
-        if (aromaStep) {
-          console.log('Aromas: ', aromaStep.opts[0]);
-        }
-        if (flavorStep) {
-          console.log('Flavors: ', flavorStep.opts[0]);
-        }
       },
       error: (err) => {
         console.error('Erreur:', err);

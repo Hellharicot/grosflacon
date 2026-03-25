@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Aromas } from '@app/pages/new-tasting-note/new-tasting-note.component';
 
@@ -10,10 +10,9 @@ import { Aromas } from '@app/pages/new-tasting-note/new-tasting-note.component';
   styleUrl: './form-aroma-selector.css',
 })
 export class FormAromaSelectorComponent {
-  @Input() name!: string;
-  @Input() placeholder!: string;
-  @Input() families: Aromas[] = [];
-
+  name = input.required<string>();
+  placeholder = input.required<string>();
+  families = input.required<Aromas[]>();
   aromaControl = new FormControl<string[]>([]);
 
   toggleOptions(aroma: string) {
