@@ -4,7 +4,15 @@
   method="post"
   class="w-xl"
 >
-  @for (step of steps; track step.criterion) {
+  @if (isLoading()) {
+    <p>Loading tasting note...</p>
+  }
+
+  @if (error()) {
+    <p>{{ error() }}</p>
+  }
+
+  @for (step of steps(); track step.criterion) {
     @switch (step.input_type) {
       @case ('input') {
         <app-form-input

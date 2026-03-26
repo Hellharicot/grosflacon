@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ApiService } from '@app/services/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,8 +36,9 @@ export interface FormStep {
 })
 
 export class NewTastingNoteComponent implements OnInit {
-  responseData: ApiResponse | null = null;
-  steps: FormStep[] = [];
+  steps = signal<FormStep[]>([]);
+  isLoading = signal<boolean>(true);
+  error = signal<string | null>(null);
 
   wineIdForm = new FormGroup({
     country: new FormControl<string>(''),
@@ -53,11 +54,13 @@ export class NewTastingNoteComponent implements OnInit {
   ngOnInit() {
     this.apiService.getTest().subscribe({
       next: (response: ApiResponse) => {
-        this.responseData = response;
-        this.steps = this.responseData.data;
+        this.steps.set(response.data);
+        this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Erreur:', err);
+        console.error('Error loading data:', err);
+        this.error.set("Error loading data");
+        this.isLoading.set(false);
       }
     });
   }
