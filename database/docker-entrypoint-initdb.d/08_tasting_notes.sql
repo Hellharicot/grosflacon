@@ -31,6 +31,18 @@ CREATE INDEX IF NOT EXISTS idx_aromas_note_id ON tasting_notes.aromas(note_id);
 CREATE INDEX IF NOT EXISTS idx_aromas_criterion_id ON tasting_notes.aromas(criterion_id);
 CREATE INDEX IF NOT EXISTS idx_aromas_aroma_id ON tasting_notes.aromas(aroma_id);
 
+CREATE TABLE IF NOT EXISTS tasting_notes.flavors (
+	id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	note_id INTEGER NOT NULL REFERENCES tasting_notes.note(id),
+	criterion_id INTEGER NOT NULL REFERENCES refs.criterion(id),
+	flavor_id INTEGER NOT NULL REFERENCES refs.flavor(id),
+	UNIQUE (note_id, criterion_id, flavor_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_flavors_note_id ON tasting_notes.flavors(note_id);
+CREATE INDEX IF NOT EXISTS idx_flavors_criterion_id ON tasting_notes.flavors(criterion_id);
+CREATE INDEX IF NOT EXISTS idx_flavors_flavor_id ON tasting_notes.flavors(flavor_id);
+
 CREATE OR REPLACE FUNCTION tasting_notes.is_aroma_selector()
 	RETURNS TRIGGER AS $$
     BEGIN
